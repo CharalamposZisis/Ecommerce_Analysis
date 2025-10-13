@@ -28,23 +28,23 @@ CREATE TABLE orders (
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     order_status VARCHAR(50),
     payment_method VARCHAR(50),
-    constraint fk_customer
-        foreign key(customer_id)
-            references customers(customer_id)
+    CONSTRAINT fk_customer
+        FOREIGN KEY (customer_id)
+            REFERENCES customers(customer_id)
 );
 
 CREATE TABLE order_items (
-    order_item_id SERIAL PRIMARY KEY,
+    order_item_id SERIAL PRIMARY KEY,         
     order_id VARCHAR(20),
     product_id VARCHAR(20),
     quantity INT,
-    unit_price DECIMAL(10,2), 
-    constraint fk_order
-        foreign key(order_id)
-            references orders(order_id),
-    constraint fk_product
-        foreign key(product_id)
-            references products(product_id)
+    unit_price DECIMAL(10,2),
+    CONSTRAINT fk_order
+        FOREIGN KEY (order_id)
+            REFERENCES orders(order_id),
+    CONSTRAINT fk_product
+        FOREIGN KEY (product_id)
+            REFERENCES products(product_id)
 );
 
 CREATE TABLE reviews (
@@ -54,12 +54,12 @@ CREATE TABLE reviews (
     rating INT,
     review_text TEXT,
     review_date TIMESTAMP,
-    constraint fk_product
-        foreign key(product_id)
-            references products(product_id),
-    constraint fk_customer
-        foreign key(customer_id)
-            references customers(customer_id)
+    CONSTRAINT fk_review_product
+        FOREIGN KEY (product_id)
+            REFERENCES products(product_id),
+    CONSTRAINT fk_review_customer
+        FOREIGN KEY (customer_id)
+            REFERENCES customers(customer_id)
 );
 
 -- END of SCHEMAS
