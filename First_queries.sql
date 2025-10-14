@@ -151,3 +151,58 @@ join order_items as oi
 on o.order_id = oi.order_id
 group by 2,3
 order by 1 desc;
+
+
+--12	Identify the most purchased product in each country.
+-- I will use windows function RANK() 
+with order_per_count as 
+(
+	select 
+		c.country, 
+		sum(oi.quantity) as total_quantity,
+		p.product_name,
+		RANK() OVER (PARTITION BY c.country ORDER BY sum(oi.quantity) DESC) AS rnk
+	from customers as c
+	join orders as o
+		on c.customer_id = o.customer_id
+	join order_items as oi
+		on oi.order_id = o.order_id
+	join products as p
+	on p.product_id=oi.product_id
+	group by 1,3
+)
+select country , product_name, total_quantity
+from order_per_count
+where rnk = 1
+order by 1;
+
+
+--13	Count how many customers made more than one order.
+select 
+	c.customer_id,
+	c.first_name,
+	c.last_name,
+	count(o.order_id) as total_orders
+from customers as c
+join orders as o
+on o.customer_id = c.customer_id
+group by 1
+having count(o.order_id) >1 ;
+
+
+--14	List customers who wrote the most reviews.
+select 
+	c.customer_id,
+	c.first_name,
+	c.last_name,
+	count(r.review_id) as total_reviews
+from customers as c
+join reviews as r
+on c.customer_id = r.customer_id
+group by 1
+order by 4 desc ;
+
+
+--15	Find the average rating given by customers for products in their first order.
+select 
+	
