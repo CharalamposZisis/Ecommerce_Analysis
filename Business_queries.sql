@@ -204,5 +204,28 @@ order by 4 desc ;
 
 
 --15	Find the average rating given by customers for products in their first order.
-select 
-	
+with first_order as
+(
+	select
+		min(o.order_date) as first_order_date,
+		o.customer_id
+	from orders as o 
+	group by 2
+)
+select
+	c.customer_id,
+	round(AVG(r.rating),2) as avg__frst_order_rate,
+	c.first_name,
+	c.last_name
+from first_order as f
+join reviews as r
+on r.customer_id = f.customer_id
+join orders as o on o.customer_id = o.customer_id
+join customers as c
+on c.customer_id = r.customer_id
+where o.order_date = (
+	select min(order_date)
+	from orders as o2
+	where o2.customer_id = c.customer_id
+)
+group by c.customer_id, c.first_name, c.last_name;
