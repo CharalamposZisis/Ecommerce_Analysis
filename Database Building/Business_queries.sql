@@ -8,9 +8,9 @@ SELECT * FROM customers;
 
 SELECT * FROM orders;
 
+
 -- How many distinct order statuses are there in the orders table?
 SELECT order_status 
-
 FROM orders
 GROUP BY order_status;
 

@@ -1,8 +1,18 @@
 # Ecommerce_Analysis
 This dataset contains customer, product, order, and review data from an online retail platform. Each row represents an order transaction with associated customer and product details. On this project i will create a Database through SQL and next i will analyze my data.
 
+Project Overview steps:
+-- Create a database for Ecommerce Analysis
+-- Project Structure, Logging And Exception Handling
+-- EDA And Model Training 
+-- Data Ingestion
+-- Data Transformation
+-- Model Trainer
+-- Predict Pipeline
+-- Model Deployment on AWS
 
-The queries i will try to answer in order to gain deeper knowledge about my data are:
+## Database and SQL quering.## 
+The queries i will try to answer (using SQL) in order to gain deeper knowledge about my data are:
 
 Basic Queries
 
